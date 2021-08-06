@@ -31,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Whether the sign-in is a continuation of the previous one.
 @property(nonatomic, readonly) BOOL continuation;
 
+/// Whether to refresh the access token.
+@property(nonatomic, readonly) BOOL refreshAccessToken;
+
 /// The extra parameters used in the sign-in URL.
 @property(nonatomic, readonly, nullable) NSDictionary *extraParams;
 
@@ -51,12 +54,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Creates the default options.
 + (instancetype)defaultOptionsWithConfiguration:(nullable GIDConfiguration *)configuration
-                       presentingViewController:(nullable UIViewController *)presentingViewController
+                       presentingViewController:
+                           (nullable UIViewController *)presentingViewController
                                       loginHint:(nullable NSString *)loginHint
-                                       callback:(GIDSignInCallback)callback;
+                                       callback:(nullable GIDSignInCallback)callback;
 
 /// Creates the options to sign in silently.
-+ (instancetype)silentOptionsWithCallback:(GIDSignInCallback)callback;
++ (instancetype)silentOptionsRefreshAccessToken:(BOOL)refreshAccessToken
+                                       callback:(nullable GIDSignInCallback)callback;
 
 /// Creates options with the same values as the receiver, except for the "extra parameters", and
 /// continuation flag, which are replaced by the arguments passed to this method.
